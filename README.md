@@ -1,2 +1,3 @@
 # digi-patient-Backend
-Serves as backend for DigiPatient
+
+Api for digipatient application

@@ -3,5 +3,9 @@
     "eslint.alwaysShowStatus": true,
     "eslint.debug": true,
     "eslint.format.enable": true,
-    "eslint.lintTask.enable": true
+    "eslint.lintTask.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "eslint.validate": ["javascript"]
 }

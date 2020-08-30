@@ -1,68 +1,58 @@
 const User = require('./users.model');
 
+exports.findByEmail = (email) => User.find({
+  email,
+});
 
-exports.findByEmail = (email) => {
-    return User.find({
-        email: email
-    });
-};
-
-exports.findById = (id) => {
-    return User.findById(id)
-        .then((result) => {
-            result = result.toJSON();
-            delete result._id;
-            delete result.__v;
-            return result;
-        });
-};
+exports.findById = (id) => User.findById(id)
+  .then((result) => {
+    const resultJSON = result.toJSON();
+    delete resultJSON._id;
+    delete resultJSON.__v;
+    return resultJSON;
+  });
 
 exports.createUser = (userData) => {
-    const user = new User(userData);
-    return user.save();
+  const user = new User(userData);
+  return user.save();
 };
 
-exports.list = (perPage, page) => {
-    return new Promise((resolve, reject) => {
-        User.find()
-            .limit(perPage)
-            .skip(perPage * page)
-            .exec(function (err, users) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(users);
-                }
-            })
+exports.list = (perPage, page) => new Promise((resolve, reject) => {
+  User.find()
+    .limit(perPage)
+    .skip(perPage * page)
+    .exec((err, users) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(users);
+      }
     });
-};
+});
 
-exports.patchUser = (id, userData) => {
-    return new Promise((resolve, reject) => {
-        User.findById(id, function (err, user) {
-            if (err) reject(err);
-            for (let i in userData) {
-                user[i] = userData[i];
-            }
-            user.save(function (err, updatedUser) {
-                if (err) return reject(err);
-                resolve(updatedUser);
-            });
-        });
-    })
+exports.patchUser = (id, userData) => new Promise((resolve, reject) => {
+  User.findById(id, (err, user) => {
+    if (err) reject(err);
 
-};
+    for (const i in userData) {
+      user[i] = userData[i];
+    }
 
-exports.removeById = (userId) => {
-    return new Promise((resolve, reject) => {
-        User.remove({
-            _id: userId
-        }, (err) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(err);
-            }
-        });
+    user.save((error, updatedUser) => {
+      if (error) return reject(error);
+      resolve(updatedUser);
     });
-};
+  });
+});
+
+exports.removeById = (userId) => new Promise((resolve, reject) => {
+  User.remove({
+    _id: userId,
+  }, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(err);
+    }
+  });
+});
