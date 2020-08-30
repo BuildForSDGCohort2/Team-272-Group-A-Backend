@@ -10,5 +10,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-buffer-constructor': 'off',
     'func-names': 'off',
+    radix: 'off',
   },
 };
