@@ -1,28 +1,28 @@
-import { sign } from 'jsonwebtoken';
-import { randomBytes, createHmac } from 'crypto';
-import { jwt_secret as jwtSecret } from '../../../common/config/env.config';
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const jwtSecret = require('../../../common/config/env.config.js').jwt_secret;
 
-export function login(req, res) {
+exports.login = (req, res) => {
   try {
     const refreshId = req.body.userId + jwtSecret;
-    const salt = randomBytes(16).toString('base64');
-    const hash = createHmac('sha512', salt).update(refreshId).digest('base64');
+    const salt = crypto.randomBytes(16).toString('base64');
+    const hash = crypto.createHmac('sha512', salt).update(refreshId).digest('base64');
     req.body.refreshKey = salt;
-    const token = sign(req.body, jwtSecret);
+    const token = jwt.sign(req.body, jwtSecret);
     const b = new Buffer(hash);
     const freshToken = b.toString('base64');
     res.status(201).send({ accessToken: token, refreshToken: freshToken });
   } catch (err) {
     res.status(500).send({ errors: err });
   }
-}
+};
 
-export function refreshToken(req, res) {
+exports.refresh_token = (req, res) => {
   try {
     req.body = req.jwt;
-    const token = sign(req.body, jwtSecret);
+    const token = jwt.sign(req.body, jwtSecret);
     res.status(201).send({ id: token });
   } catch (err) {
     res.status(500).send({ errors: err });
   }
-}
+};
