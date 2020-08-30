@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const crypto = require('crypto');
 const UserModel = require('../../users/models/user.model.functions');
 

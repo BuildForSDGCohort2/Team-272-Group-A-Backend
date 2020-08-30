@@ -9,5 +9,6 @@ module.exports = {
     'consistent-return': 'off',
     'no-param-reassign': 'off',
     'no-buffer-constructor': 'off',
+    'func-names': 'off',
   },
 };

@@ -9,7 +9,6 @@ export function login(req, res) {
     const hash = createHmac('sha512', salt).update(refreshId).digest('base64');
     req.body.refreshKey = salt;
     const token = sign(req.body, jwtSecret);
-    // eslint-disable-next-line no-buffer-constructor
     const b = new Buffer(hash);
     const freshToken = b.toString('base64');
     res.status(201).send({ accessToken: token, refreshToken: freshToken });
