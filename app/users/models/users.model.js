@@ -14,7 +14,6 @@ userSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
-// Ensure virtual fields are serialised.
 userSchema.set('toJSON', {
   virtuals: true,
 });
@@ -24,5 +23,7 @@ userSchema.findById = function (cb) {
     id: this.id,
   }, cb);
 };
+
+userSchema.plugin(require('mongoose-paginate'));
 
 module.exports = mongoose.model('User', userSchema);
