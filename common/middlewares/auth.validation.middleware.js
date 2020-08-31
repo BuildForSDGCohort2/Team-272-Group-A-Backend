@@ -10,7 +10,6 @@ exports.verifyRefreshBodyField = (req, res, next) => {
 };
 
 exports.validRefreshNeeded = (req, res, next) => {
-  // eslint-disable-next-line no-buffer-constructor
   const b = new Buffer(req.body.refreshToken, 'base64');
   const freshToken = b.toString();
   const hash = crypto.createHmac('sha512', req.jwt.refreshKey).update(req.jwt.userId + secret).digest('base64');
