@@ -29,7 +29,7 @@ exports.list = async (req, res) => {
       }
     }
 
-    const users = await User.paginate({}, { page, limit }).populate();
+    const users = await User.paginate(req.query, { page, limit }).populate();
     res.status(200).send(users);
   } catch (error) {
     Util.errorHandler(res, error);
