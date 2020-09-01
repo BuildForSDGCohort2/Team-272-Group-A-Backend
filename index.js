@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 const AuthorizationRouter = require('./app/authorization/routes.config');
 const UsersRouter = require('./app/users/routes.config');
+const PatientRouter = require('./app/patient/routes.config');
 const config = require('./common/config/env.config.js');
 
 app.use((req, res, next) => {
@@ -34,6 +35,7 @@ AuthorizationRouter.routesConfig(app);
 
 // config routes
 UsersRouter.routesConfig(app);
+PatientRouter.routesConfig(app);
 
 app.listen(config.port, () => {
   console.log('APP RUNNING IN PORT %s', config.port);

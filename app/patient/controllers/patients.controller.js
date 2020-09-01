@@ -44,7 +44,8 @@ exports.getById = async (req, res) => {
 
 exports.patchById = async (req, res) => {
   try {
-    const patient = await Patient.findOneAndUpdate({ _id: req.params.patientId }, req.body, { new: true });
+    const patient = await Patient.findOneAndUpdate({ _id: req.params.patientId },
+      req.body, { new: true });
     if (!patient) {
       throw new Error('patient not found');
     }
