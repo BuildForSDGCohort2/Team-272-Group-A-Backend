@@ -57,7 +57,7 @@ exports.patchById = async (req, res) => {
 
     const user = await User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true });
     if (!user) {
-      throw new Error('user not found');
+      throw new Error('No user matching user found');
     }
     res.status(200).send({ user });
   } catch (error) {
