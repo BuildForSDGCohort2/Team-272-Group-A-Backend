@@ -5,8 +5,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-process.env.PWD = process.cwd();
-
 const AuthorizationRouter = require('./app/authorization/routes.config');
 const UsersRouter = require('./app/users/routes.config');
 const PatientRouter = require('./app/patient/routes.config');
@@ -38,8 +36,7 @@ AuthorizationRouter.routesConfig(app);
 
 // config routes
 const publicFiles = `${__dirname}/public`;
-// app.use('/', express.static(publicFiles));
-app.use('/', express.static(`${process.env.PWD}/public`));
+app.use('/', express.static(publicFiles));
 UsersRouter.routesConfig(app);
 PatientRouter.routesConfig(app);
 
