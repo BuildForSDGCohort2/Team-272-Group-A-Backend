@@ -9,6 +9,7 @@ const AuthorizationRouter = require('./app/authorization/routes.config');
 const UsersRouter = require('./app/users/routes.config');
 const PatientRouter = require('./app/patient/routes.config');
 const config = require('./common/config/env.config.js');
+require('dotenv').config();
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connectionString = process.env.MONGODB_URL || 'mongodb://localhost:27017/digipatient';
+const connectionString = process.env.MONGODB_URL || 'mongodb://digipatient:dpatient2020@ds133256.mlab.com:33256/digipatient';
+console.log(connectionString);
 let count = 0;
 
 const options = {
@@ -16,14 +18,18 @@ const options = {
 
 };
 const connectWithRetry = () => {
-  console.log('MongoDB connection with retry');
-  mongoose.connect(connectionString, options).then(() => {
-    console.log('MongoDB is connected');
-  }).catch((err) => {
-    console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++count);
-    console.log(err);
-    setTimeout(connectWithRetry, 5000);
-  });
+  try {
+    console.log('MongoDB Trying  connection with retry');
+    mongoose.connect(connectionString, options).then(() => {
+      console.log('MongoDB is connected');
+    }).catch((err) => {
+      console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++count);
+      console.log(err);
+      setTimeout(connectWithRetry, 5000);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 connectWithRetry();
