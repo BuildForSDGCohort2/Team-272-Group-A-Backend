@@ -35,6 +35,8 @@ app.use(bodyParser.json());
 AuthorizationRouter.routesConfig(app);
 
 // config routes
+const publicFiles = `${__dirname}/public`;
+app.use(express.static(publicFiles));
 UsersRouter.routesConfig(app);
 PatientRouter.routesConfig(app);
 
