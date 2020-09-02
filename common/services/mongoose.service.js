@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const connectionString = process.env.MONGODB_URL || 'mongodb://digipatient:dpatient2020@ds133256.mlab.com:33256/digipatient';
-console.log(connectionString);
+let connectionString = 'mongodb://localhost:27017/digipatient';
+
+if (process.env.PRODUCTION === '1') {
+  connectionString = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DBURL}`;
+}
+
 let count = 0;
 
 const options = {
